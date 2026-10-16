@@ -69,10 +69,10 @@ document.getElementById("openVault").onclick=()=>{const expected=Object.values(s
   const n=Number(room.dataset.room);
   unlocked.add(room.dataset.room);
   room.querySelectorAll("button.option").forEach(x=>x.disabled=true);
-  room.querySelector(".digit").innerHTML="🔓 <b>ROOM CODE: "+roomCodes[n]+"</b><br>Room complete — move on to the next room!";
+  room.querySelector(".digit").innerHTML="✅ <b>ROOM COMPLETE</b><br>Move on to the next room!";
   f.className="feedback followFeedback good";
   f.textContent="Excellent deduction! This room is complete.";
-  document.getElementById("escapeStatus").textContent=unlocked.size+" of 4 room codes earned";
+  document.getElementById("escapeStatus").textContent=unlocked.size+" of 4 rooms completed";
   document.getElementById("escapeProgress").style.width=(unlocked.size/4*100)+"%";
   if(unlocked.size===4){
    const victory=document.getElementById("victory");
