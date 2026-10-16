@@ -38,6 +38,46 @@ button:hover{filter:brightness(1.03);transform:translateY(-1px)}
 .tiny{color:#5a746e}
 footer{color:#4f6d65}
 .room button.option{box-shadow:none}
+
+/* Neon Health & Nutrition presentation theme */
+:root{--navy:#090b27;--pink:#ff35c8;--blue:#20e8ff;--lime:#c7ff3d;--purple:#9d4dff;--gold:#ffe640;color-scheme:dark}
+body{background:radial-gradient(ellipse at 50% 0%,#22206a 0%,#0b1035 48%,#07091e 100%);color:#f8fbff}
+header{position:relative;overflow:hidden;background:radial-gradient(circle at 12% 15%,#6920a8aa,transparent 28%),radial-gradient(circle at 88% 8%,#006eaa99,transparent 30%),linear-gradient(135deg,#111044,#080b28 65%,#1b0b3b);border-bottom:3px solid var(--blue);box-shadow:0 0 28px #20e8ff35}
+header:before{content:"🥑  🍎  🧠  ⚡  💧";display:block;font-size:clamp(1.3rem,3vw,2.2rem);letter-spacing:.2rem;margin:0 auto .7rem;filter:drop-shadow(0 0 8px #20e8ff)}
+header:after{content:"🥦  🍓  💪  ✨  🥕";display:block;font-size:clamp(1.1rem,2.5vw,1.8rem);letter-spacing:.2rem;margin:1rem auto 0;filter:drop-shadow(0 0 8px #ff35c8)}
+.eyebrow{color:var(--lime);text-shadow:0 0 12px #c7ff3d70}
+.hero span{color:var(--pink);text-shadow:0 0 18px #ff35c875}
+header p{color:#d9e7ff}
+nav{background:rgba(9,11,39,.96);border-bottom:1px solid #20e8ff70;box-shadow:0 4px 24px #0008}
+nav a{color:#f7fbff;border-color:#654eaa;background:#171442}
+nav a:hover{color:var(--lime);border-color:var(--lime);box-shadow:0 0 12px #c7ff3d55}
+section{background:linear-gradient(145deg,#17163f,#10142f);border:1px solid #51418c;box-shadow:0 8px 28px #0005,0 0 14px #9d4dff12}
+.heading{color:#fff}
+.num{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 0 15px #ff35c855}
+.muted{color:#d4dcff}
+.card{background:#f9fbff;color:#17203c;box-shadow:0 4px 18px #0004;border-top-color:var(--blue)}
+.card:nth-child(2){border-color:var(--pink)}.card:nth-child(3){border-color:var(--lime)}
+.callout{background:#202052;color:#f7f8ff;border-left-color:var(--lime)}
+button{background:linear-gradient(110deg,#ff35c8,#ff65a8);color:#180d36;box-shadow:0 3px 0 #a51d8a,0 0 12px #ff35c830}
+button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.blue{background:var(--blue);color:#062b3a;box-shadow:0 3px 0 #087b9a,0 0 12px #20e8ff35}
+.green{background:var(--lime);color:#1a2c08;box-shadow:0 3px 0 #669a18}
+.purple{background:#c4a1ff;color:#25104c;box-shadow:0 3px 0 #7045b5}
+.question{background:#fbfaff;color:#17162e;box-shadow:0 4px 18px #0004}
+.option.selected{border-color:#9d4dff;background:#f0e7ff}
+.feedback{color:#f8fbff}.good{color:#c7ff3d}.try{color:#ffe640}
+.progress{background:#33345e}.progress span{background:linear-gradient(90deg,#ff35c8,#20e8ff,#c7ff3d)}
+.tile{background:#f8f8ff;color:#17162e;border-color:#51418c;box-shadow:0 4px 14px #0003}
+.tile.done{background:#e7ffd6;border-color:#8ac926}
+.resource{background:#1d204e;color:#f5f5ff;border-color:#4c5291}
+.resource h3{color:var(--blue)}
+.tag{background:#30305e;color:var(--lime)}
+textarea{background:#fff;color:#17162e;border-color:#20e8ff}
+.tiny{color:#c6d1f3}
+footer{color:#c6d1f3}
+.room button.option{background:#eff1fa;color:#20233a;box-shadow:none}
+.room .digit{color:#26701c;background:#e7ffd5}
+@media(max-width:600px){header:before,header:after{letter-spacing:0.05rem}}
 </style></head><body>
 <header><div class="eyebrow">Virtual Health • Week 9</div><h1 class="hero">Become a <span>Food & Energy</span> Detective</h1><p>Investigate how food provides energy, how your body uses energy all day, and why overall patterns matter more than one meal. Explore, test your thinking, and play!</p></header>
 <nav><a href="#learn">Mission Briefing</a><a href="#escape">1. Escape Room</a><a href="#quiz">2. Vocabulary Check</a><a href="#game">3. Challenge Cards</a><a href="#resources">4. Resources</a><a href="#final-submit">5. Final Vault</a></nav>
