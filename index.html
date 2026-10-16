@@ -2,7 +2,43 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Food & Energy Escape Room</title>
 <style>
 :root{--navy:#10142a;--pink:#ff2fa0;--blue:#21c8f6;--lime:#a8f542;--purple:#9a55ff;--gold:#ffc857}*{box-sizing:border-box}body{margin:0;background:var(--navy);color:#fff;font:16px/1.55 system-ui,Segoe UI,sans-serif}header{text-align:center;padding:3rem 1rem;background:radial-gradient(circle at 15% 15%,#48236a,transparent 30%),radial-gradient(circle at 85% 5%,#07536e,transparent 32%),var(--navy);border-bottom:3px solid var(--blue)}.eyebrow{color:var(--lime);text-transform:uppercase;letter-spacing:.16em;font-weight:900}.hero{font-size:clamp(2.5rem,7vw,5rem);line-height:1.03;max-width:900px;margin:.6rem auto;font-weight:950}.hero span{color:var(--pink)}header p{max-width:700px;margin:auto;color:#e1e5f8;font-size:1.1rem}nav{position:sticky;top:0;z-index:4;background:#171c36;padding:.8rem;display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap}nav a{color:white;text-decoration:none;border:1px solid #58607f;border-radius:99px;padding:.45rem .8rem;font-weight:750}nav a:hover{color:var(--lime);border-color:var(--lime)}main{max-width:1100px;margin:auto;padding:1rem}section{margin:1.3rem 0;padding:clamp(1rem,3vw,2rem);background:#1b2140;border:1px solid #394265;border-radius:22px}.heading{display:flex;align-items:center;gap:.7rem;font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.15;margin:0 0 1rem}.num{display:grid;place-items:center;width:2.5rem;height:2.5rem;flex:none;border-radius:50%;background:var(--pink);color:#15172b}.muted{color:#d5d9ee}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem}.card{background:#fff;color:#181a30;border-radius:16px;padding:1rem;border-top:5px solid var(--blue)}.card:nth-child(2){border-color:var(--pink)}.card:nth-child(3){border-color:var(--lime)}.card h3{margin:.2rem 0}.icon{font-size:1.7rem}.callout{background:#252d50;border-left:5px solid var(--lime);border-radius:12px;padding:1rem;margin:1rem 0}button{border:0;border-radius:99px;padding:.7rem 1rem;background:var(--pink);color:#14172b;font:inherit;font-weight:850;cursor:pointer}button:hover{filter:brightness(1.1)}.blue{background:var(--blue)}.green{background:var(--lime)}.purple{background:#c7a1ff}.question{background:#fff;color:#191a30;border-radius:14px;padding:1rem;margin:1rem 0}.question p{font-weight:800;margin:.1rem 0 .6rem}.option{display:block;text-align:left;width:100%;background:#eff1fa;color:#20233a;border:2px solid transparent;border-radius:9px;padding:.65rem;margin:.4rem 0}.option.selected{border-color:#9349f5;background:#f2eaff}.feedback{font-weight:800;min-height:1.4rem}.good{color:#26701c}.try{color:#a34a00}.progress{height:9px;background:#3b4263;border-radius:99px;overflow:hidden;margin:.8rem 0}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--blue),var(--lime))}.gamegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.7rem}.tile{min-height:100px;background:#f7f7ff;color:#171a30;border-radius:13px;padding:.8rem;text-align:center;border:2px solid transparent}.tile strong,.tile small{display:block}.tile small{margin-top:.3rem}.tile.done{background:#e7ffd5;border-color:#66c943}.resource{padding:1rem;background:#252d50;border:1px solid #465078;border-radius:12px;margin:.7rem 0}.resource h3{margin:0;color:var(--blue)}.tag{display:inline-block;border-radius:99px;background:#303b60;color:var(--lime);font-size:.8rem;font-weight:800;padding:.2rem .65rem}textarea{width:100%;min-height:100px;border-radius:10px;border:2px solid #cbd1e8;padding:.8rem;font:inherit}.tiny{font-size:.85rem;color:#c8cde4}footer{text-align:center;padding:2rem;color:#c8cde4}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;transition:none!important}}
-.mini-puzzle.hidden{display:none}.room button.option{display:block;width:100%;margin:.4rem 0;background:#eff1fa;color:#20233a;border-radius:9px;padding:.65rem;text-align:left}.room button.option:disabled{opacity:.65;cursor:default}.room .digit{font-weight:850;color:#26701c;background:#e7ffd5;border-radius:10px;padding:.6rem}</style></head><body>
+.mini-puzzle.hidden{display:none}.room button.option{display:block;width:100%;margin:.4rem 0;background:#eff1fa;color:#20233a;border-radius:9px;padding:.65rem;text-align:left}.room button.option:disabled{opacity:.65;cursor:default}.room .digit{font-weight:850;color:#26701c;background:#e7ffd5;border-radius:10px;padding:.6rem}
+/* Bright Wellness theme */
+:root{--navy:#f2fbf6;--pink:#ff6685;--blue:#27b8c8;--lime:#8ac926;--purple:#8267d8;--gold:#ffc857;color-scheme:light}
+body{background:linear-gradient(135deg,#f3fff7 0%,#eefaff 48%,#fff5f7 100%);color:#203b37}
+header{background:radial-gradient(circle at 12% 18%,#ffe0a8 0,transparent 28%),radial-gradient(circle at 88% 8%,#c8f4ed 0,transparent 32%),linear-gradient(135deg,#fff9e9,#e9fbf5 55%,#f5edff);border-bottom:4px solid #27b8c8}
+.eyebrow{color:#287d67}
+.hero span{color:#e94f78}
+header p{color:#405d58}
+nav{background:rgba(255,255,255,.96);border-bottom:1px solid #cce9df;box-shadow:0 4px 18px #2b76661a}
+nav a{color:#294a43;border-color:#b8ded3;background:#f7fffb}
+nav a:hover{color:#b52e61;border-color:#ff6685;background:#fff0f4}
+section{background:rgba(255,255,255,.94);border:1px solid #cfe8de;box-shadow:0 8px 24px #326f5b12}
+.num{background:#ffb8c8;color:#663047}
+.muted{color:#506d66}
+.card{box-shadow:0 4px 14px #294d4210}
+.callout{background:#effaf4;color:#294a43;border-left-color:#8ac926}
+button{background:#ff8aa3;color:#442537;box-shadow:0 3px 0 #e85b7c}
+button:hover{filter:brightness(1.03);transform:translateY(-1px)}
+.blue{background:#8be1e8;color:#17434a;box-shadow:0 3px 0 #27b8c8}
+.green{background:#c7ef8a;color:#29451b;box-shadow:0 3px 0 #8ac926}
+.purple{background:#d8ccff;color:#392c6b;box-shadow:0 3px 0 #a18ae8}
+.question{box-shadow:0 4px 15px #294d4210}
+.option.selected{border-color:#8267d8;background:#f0ebff}
+.progress{background:#d9eee6}
+.progress span{background:linear-gradient(90deg,#ff6685,#27b8c8,#8ac926)}
+.tile{box-shadow:0 4px 12px #294d4210;border-color:#d6ece3}
+.tile.done{background:#e7f8d8;border-color:#8ac926}
+.resource{background:#f0fbf8;color:#294a43;border-color:#bfe4d8}
+.resource h3{color:#178b9a}
+.tag{background:#e0f5c8;color:#35571d}
+.feedback{color:#355b4f}
+.good{color:#26701c}
+.try{color:#9b4d17}
+.tiny{color:#5a746e}
+footer{color:#4f6d65}
+.room button.option{box-shadow:none}
+</style></head><body>
 <header><div class="eyebrow">Virtual Health • Week 9</div><h1 class="hero">Become a <span>Food & Energy</span> Detective</h1><p>Investigate how food provides energy, how your body uses energy all day, and why overall patterns matter more than one meal. Explore, test your thinking, and play!</p></header>
 <nav><a href="#learn">Mission Briefing</a><a href="#escape">1. Escape Room</a><a href="#quiz">2. Vocabulary Check</a><a href="#game">3. Challenge Cards</a><a href="#resources">4. Resources</a><a href="#final-submit">5. Final Vault</a></nav>
 <main>
