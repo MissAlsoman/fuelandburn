@@ -47,36 +47,36 @@ let done=new Set();document.getElementById("gamegrid").onclick=e=>{let b=e.targe
 document.getElementById("resourceChoices").onclick=e=>{const b=e.target.closest("button[data-resource]");if(!b)return;const f=document.getElementById("resourceFeedback");if(b.dataset.resource==="right"){f.className="feedback good";f.textContent="Correct! Serving size is a useful starting point, and label details should be considered in context.";document.getElementById("resourceWord").innerHTML="<b>🔓 SECRET WORD EARNED: "+secretWords.resources+"</b>";earnWord("resources");document.querySelectorAll("#resourceChoices button").forEach(x=>x.disabled=true)}else{f.className="feedback try";f.textContent="Not quite. A label provides useful information, but it does not judge food or tell the whole story."}};
 
 const roomCodes=["SPARK","ENERGY","BALANCE","WELLNESS"];const unlocked=new Set();const secretWords={rooms:"DISCOVER",quiz:"NOTICE",game:"ENERGY",resources:"PATTERNS"};const earned=new Set();function earnWord(section){if(earned.has(section))return;earned.add(section);const tracker=document.getElementById("wordTracker");const labels={rooms:"Escape Rooms",quiz:"Detective Quiz",game:"Wildcard Game",resources:"Resource Station"};tracker.innerHTML="<b>Secret-word tracker:</b> "+Object.keys(secretWords).map(k=>(earned.has(k)?"🔓 "+labels[k]+": <b>"+secretWords[k]+"</b>":"🔒 "+labels[k])).join(" · ");if(earned.size===4){tracker.innerHTML="<h3>🏆 FOUR SECRET WORDS EARNED!</h3><p>"+Object.values(secretWords).join(" · ")+"</p><p><b>FINAL PUZZLE:</b> Count the letters in each secret word, in the order shown above. Put the four numbers together to discover your final completion code!</p><p>Go to the Final Vault to enter your four words and solve the final code puzzle.</p>";tracker.scrollIntoView({behavior:"smooth",block:"center"})}}
-document.getElementById("openVault").onclick=()=>{const expected=Object.values(secretWords);const entered=[1,2,3,4].map(i=>document.getElementById("word"+i).value.trim().toUpperCase());const missing=entered.map((v,i)=>v===expected[i]?null:i+1).filter(v=>v!==null);const f=document.getElementById("vaultFeedback");if(missing.length){f.className="feedback try";f.textContent="Not quite yet. Check secret word(s) "+missing.join(", ")+" against the words you earned in each section, then try again.";document.getElementById("screenshotPanel").classList.add("hidden");return}const code=document.getElementById("finalCode").value.trim();if(code!=="8668"){f.className="feedback try";f.textContent="Your four words are correct! Now solve the final code: count the letters in each word, in order, and combine the numbers.";document.getElementById("screenshotPanel").classList.add("hidden");return}f.className="feedback good";f.textContent="All four words and the final code are correct! Complete your reflection below, then screenshot the final panel.";document.getElementById("submittedWords").innerHTML=expected.map((w,i)=>"<li><b>"+["Escape Rooms","Detective Quiz","Wildcard Game","Resource Station"][i]+":</b> "+w+"</li>").join("");document.getElementById("finalCodeDisplay").textContent=code;document.getElementById("screenshotPanel").classList.remove("hidden");document.getElementById("screenshotPanel").scrollIntoView({behavior:"smooth",block:"start"})};document.getElementById("rooms").addEventListener("click",e=>{
- const b=e.target.closest("button.option");
- if(!b)return;
- const room=b.closest(".room");
- if(!room||unlocked.has(room.dataset.room)||b.disabled)return;
- const follow=!!b.closest(".mini-puzzle");
- const f=room.querySelector(follow?".followFeedback":".roomFeedback");
- if(b.dataset.answer!=="right"){
-  f.className="feedback "+(follow?"followFeedback":"roomFeedback")+" try";
-  f.textContent="Not quite—review the case file and try another answer.";
-  return;
- }
- if(!follow){
-  room.querySelectorAll(":scope > button.option").forEach(x=>x.disabled=true);
-  room.querySelector(".mini-puzzle").classList.remove("hidden");
-  f.className="feedback roomFeedback good";
-  f.textContent="Correct! First clue solved—now solve the follow-up to earn this room’s code.";
-  return;
- }
- const n=Number(room.dataset.room);
- unlocked.add(room.dataset.room);
- room.querySelectorAll("button.option").forEach(x=>x.disabled=true);
- room.querySelector(".digit").innerHTML="🔓 <b>ROOM CODE: "+roomCodes[n]+"</b><br>Write this down before moving on!";
- f.className="feedback followFeedback good";
- f.textContent="Excellent deduction! Room code earned.";
- document.getElementById("escapeStatus").textContent=unlocked.size+" of 4 room codes earned";
- document.getElementById("escapeProgress").style.width=(unlocked.size/4*100)+"%";
- if(unlocked.size===4){
-  earnWord("rooms");
-  document.getElementById("victory").innerHTML="<h3>🎉 ESCAPE ROOMS COMPLETE!</h3><p>You earned all four room codes:</p><p style='font-size:1.2rem;font-weight:950;color:#a8f542'>"+roomCodes.join(" – ")+"</p><p>Great work! Keep exploring the other sections to earn all four secret words and open the final vault.</p>";
-  document.getElementById("victory").scrollIntoView({behavior:"smooth",block:"center"});
- }
+document.getElementById("openVault").onclick=()=>{const expected=Object.values(secretWords);const entered=[1,2,3,4].map(i=>document.getElementById("word"+i).value.trim().toUpperCase());const missing=entered.map((v,i)=>v===expected[i]?null:i+1).filter(v=>v!==null);const f=document.getElementById("vaultFeedback");if(missing.length){f.className="feedback try";f.textContent="Not quite yet. Check secret word(s) "+missing.join(", ")+" against the words you earned in each section, then try again.";document.getElementById("screenshotPanel").classList.add("hidden");return}const code=document.getElementById("finalCode").value.trim();if(code!=="8668"){f.className="feedback try";f.textContent="Your four words are correct! Now solve the final code: count the letters in each word, in order, and combine the numbers.";document.getElementById("screenshotPanel").classList.add("hidden");return}f.className="feedback good";f.textContent="All four words and the final code are correct! Complete your reflection below, then screenshot the final panel.";document.getElementById("submittedWords").innerHTML=expected.map((w,i)=>"<li><b>"+["Escape Rooms","Detective Quiz","Wildcard Game","Resource Station"][i]+":</b> "+w+"</li>").join("");document.getElementById("finalCodeDisplay").textContent=code;document.getElementById("screenshotPanel").classList.remove("hidden");document.getElementById("screenshotPanel").scrollIntoView({behavior:"smooth",block:"start"})};document.querySelectorAll("#rooms button.option").forEach(b=>{
+ b.addEventListener("click",()=>{
+  const room=b.closest(".room");
+  if(!room||unlocked.has(room.dataset.room)||b.disabled)return;
+  const follow=!!b.closest(".mini-puzzle");
+  const f=room.querySelector(follow?".followFeedback":".roomFeedback");
+  if(b.dataset.answer!=="right"){
+   f.className="feedback "+(follow?"followFeedback":"roomFeedback")+" try";
+   f.textContent="Not quite—review the case file and try another answer.";
+   return;
+  }
+  if(!follow){
+   room.querySelectorAll(":scope > button.option").forEach(x=>x.disabled=true);
+   room.querySelector(".mini-puzzle").classList.remove("hidden");
+   f.className="feedback roomFeedback good";
+   f.textContent="Correct! First clue solved—now solve the follow-up to earn this room’s code.";
+   return;
+  }
+  const n=Number(room.dataset.room);
+  unlocked.add(room.dataset.room);
+  room.querySelectorAll("button.option").forEach(x=>x.disabled=true);
+  room.querySelector(".digit").innerHTML="🔓 <b>ROOM CODE: "+roomCodes[n]+"</b><br>Write this down before moving on!";
+  f.className="feedback followFeedback good";
+  f.textContent="Excellent deduction! Room code earned.";
+  document.getElementById("escapeStatus").textContent=unlocked.size+" of 4 room codes earned";
+  document.getElementById("escapeProgress").style.width=(unlocked.size/4*100)+"%";
+  if(unlocked.size===4){
+   earnWord("rooms");
+   document.getElementById("victory").innerHTML="<h3>🎉 ESCAPE ROOMS COMPLETE!</h3><p>You earned all four room codes:</p><p style='font-size:1.2rem;font-weight:950;color:#a8f542'>"+roomCodes.join(" – ")+"</p><p>Great work! Keep exploring the other sections to earn all four secret words and open the final vault.</p>";
+   document.getElementById("victory").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+ });
 });</script></body></html>
