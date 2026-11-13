@@ -42,7 +42,7 @@ footer{text-align:center;color:#89a9bf;padding:20px;font-size:.85rem}
  <p>A health detective investigation into body composition, glucose, diabetes, and the many factors that shape health.</p>
 </header>
 <nav aria-label="Investigation sections">
- <button class="active" data-go="briefing">Case Briefing</button><button data-go="profiles">Meet the People</button><button data-go="evidence">Evidence Locker</button><button data-go="clues">Solve the Clues</button><button data-go="report">Final Report</button>
+ <button class="active" data-go="briefing">Case Briefing</button><button data-go="profiles">Meet the People</button><button data-go="evidence">Evidence Locker</button><button data-go="lab">Investigation Labs</button><button data-go="clues">Solve the Clues</button><button data-go="report">Final Report</button>
 </nav>
 <div class="wrap"><div class="topline"><span>VPrepWV • HEALTH • WEEK 13</span><span id="progressText">Investigation progress: 0 / 4</span></div><div class="progress"><span id="progressBar"></span></div></div>
 <main>
@@ -80,11 +80,22 @@ footer{text-align:center;color:#89a9bf;padding:20px;font-size:.85rem}
  <details class="evidence"><summary>Evidence F — Body composition and glucose</summary><p>Muscles use glucose for energy. Physical activity and muscle contractions can help muscles take up glucose and can improve insulin sensitivity. Higher amounts of visceral fat are associated with greater insulin resistance, but body fat or body size alone cannot diagnose diabetes or determine someone's health.</p></details>
  <details class="evidence"><summary>Evidence G — Living with diabetes</summary><p>Diabetes management is individual. It may involve checking glucose, insulin or other treatments, food choices, physical activity, and ongoing adjustments. Technology such as continuous glucose monitors and insulin pumps can support management. People with diabetes can live active, full lives.</p></details>
  <div class="callout"><b>Important:</b> This activity is for education—not diagnosis. Never guess whether someone has diabetes based on appearance or make assumptions about how they manage their health.</div>
- <button class="btn primary" data-next="clues">I reviewed the evidence — solve the clues →</button>
+ <button class="btn primary" data-next="lab">Evidence reviewed — enter the investigation labs →</button>
+</section>
+
+
+<section class="panel" id="lab" hidden>
+ <div class="kicker">File 03 • Interactive investigation</div><h2>🧪 The Investigation Labs</h2>
+ <p class="muted">The evidence locker gave you the facts. Now test your detective skills at four interactive stations. Complete each station to unlock the final clue challenge.</p>
+ <div class="steps" id="labSteps"><span class="step">01 Body Composition Lab</span><span class="step">02 Glucose Relay</span><span class="step">03 Myth Buster</span><span class="step">04 Technology Check</span></div>
+ <div id="labStations"></div>
+ <div class="progress"><span id="labProgress"></span></div>
+ <p id="labStatus" class="muted" aria-live="polite">0 of 4 investigation stations completed.</p>
+ <button class="btn primary" id="toClues" disabled>All stations complete — solve the clues →</button>
 </section>
 
 <section class="panel" id="clues" hidden>
- <div class="kicker">File 03 • Investigation challenge</div><h2>🧩 Solve the Clues</h2><p class="muted">Answer all six questions. You can retry any question. Use the evidence locker if you need a reminder.</p>
+ <div class="kicker">File 03 • Investigation challenge</div><h2>🧩 Solve the Clues</h2><p class="muted">You have completed the four investigation labs. Now answer all six case questions. You can retry any question and use the evidence locker when you need a reminder.</p>
  <div id="quiz"></div>
  <div class="progress"><span id="quizProgress"></span></div>
  <p id="quizScore" class="muted" aria-live="polite">0 of 6 clues solved.</p>
@@ -115,11 +126,62 @@ footer{text-align:center;color:#89a9bf;padding:20px;font-size:.85rem}
 </main>
 <footer>VPrepWV • Health Week 13 • CASE FILE #013<br>Educational activity only. Not medical advice or a diagnostic tool.</footer>
 <script>
-const sections=["briefing","profiles","evidence","clues","report"];let visited=new Set(["briefing"]);let solved=new Set();
+const sections=["briefing","profiles","evidence","lab","clues","report"];let visited=new Set(["briefing"]);let solved=new Set();let labDone=new Set();
 function show(id){sections.forEach(s=>document.getElementById(s).hidden=s!==id);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));visited.add(id);updateProgress();window.scrollTo({top:0,behavior:"smooth"})}
 function updateProgress(){let n=visited.size;document.getElementById("progressText").textContent="Investigation progress: "+n+" / 5";document.getElementById("progressBar").style.width=(n/5*100)+"%"}
-document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.go==="report"&&!document.getElementById("unlockReport").disabled)return show("report");show(b.dataset.go)}));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.go==="report"&&document.getElementById("unlockReport").disabled)return show("clues");if(b.dataset.go==="clues"&&labDone.size!==4)return show("lab");show(b.dataset.go)}));
 document.querySelectorAll("[data-next]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.next)));
+
+const labData=[
+ {id:"body",title:"01 • Body Composition Lab",intro:"Match each body component to an accurate description.",qs:[
+  {q:"Which body component helps you move, supports posture, and uses glucose for energy?",a:["Muscle mass","Bone mass","Body water"],c:0,why:"Muscles help produce movement and use glucose for energy."},
+  {q:"Which statement about body fat is accurate?",a:["All body fat is harmful","Fat tissue has roles including energy storage and protection","Body fat alone diagnoses diabetes"],c:1,why:"Fat tissue has important functions. Amount and distribution can relate to health, but appearance alone cannot diagnose a condition."}
+ ]},
+ {id:"glucose",title:"02 • Glucose Relay",intro:"Follow the path from food to the cells.",qs:[
+  {q:"After carbohydrates are digested, what enters the bloodstream?",a:["Glucose","Insulin","Oxygen"],c:0,why:"Carbohydrates are broken down into glucose, which enters the bloodstream."},
+  {q:"Which organ produces insulin?",a:["The heart","The pancreas","The lungs"],c:1,why:"The pancreas produces insulin, which helps glucose move into many body cells."}
+ ]},
+ {id:"myths",title:"03 • Diabetes Myth Buster",intro:"Separate reliable information from common misconceptions.",qs:[
+  {q:"True or false: Type 1 diabetes is caused by eating too much sugar.",a:["True","False"],c:1,why:"Type 1 diabetes is an autoimmune condition, not caused by eating sugar."},
+  {q:"Which statement about Type 2 diabetes is most accurate?",a:["It only affects adults","It is caused by one personal choice","It has multiple contributing factors and can affect people of different ages"],c:2,why:"Type 2 diabetes is influenced by multiple factors and can affect people of different ages."}
+ ]},
+ {id:"tech",title:"04 • Technology Check",intro:"Technology can support diabetes management, but it does not make diabetes disappear.",qs:[
+  {q:"What does a continuous glucose monitor (CGM) help a person do?",a:["Track glucose patterns throughout the day","Automatically cure diabetes","Replace every medical decision"],c:0,why:"A CGM tracks glucose readings and trends. People still use the information to make management decisions."},
+  {q:"A student with Type 1 diabetes is wearing a CGM. What is the best response?",a:["Assume you know how they feel","Respect their privacy and follow their lead if they choose to share","Tell them what they should eat"],c:1,why:"Respect privacy. Offer support without making assumptions or giving unsolicited medical advice."}
+ ]}
+];
+const labRoot=document.getElementById("labStations");
+labData.forEach((station,si)=>{
+ const card=document.createElement("article");card.className="evidence";card.id="station-"+station.id;
+ card.innerHTML='<h3>'+station.title+'</h3><p class="muted">'+station.intro+'</p>'+station.qs.map((q,qi)=>'<div class="question"><p>'+(qi+1)+'. '+q.q+'</p><div class="choices">'+q.a.map((a,ai)=>'<button class="choice" data-station="'+si+'" data-question="'+qi+'" data-answer="'+ai+'">'+String.fromCharCode(65+ai)+'. '+a+'</button>').join("")+'</div><div class="feedback" id="labfb-'+si+'-'+qi+'"></div></div>').join("")+'<p class="feedback" id="stationStatus-'+si+'">Station not yet complete.</p>';
+ labRoot.appendChild(card);
+});
+labRoot.addEventListener("click",e=>{
+ const b=e.target.closest(".choice");if(!b)return;
+ const si=+b.dataset.station,qi=+b.dataset.question,ai=+b.dataset.answer,st=labData[si],q=st.qs[qi];
+ if(labDone.has(st.id)||b.disabled)return;
+ const feedback=document.getElementById("labfb-"+si+"-"+qi);
+ if(ai===q.c){
+  b.classList.add("correct");b.disabled=true;
+  feedback.className="feedback good";feedback.textContent="✓ Correct! "+q.why;
+  const stationButtons=labRoot.querySelectorAll('[data-station="'+si+'"]');
+  const answered=[...stationButtons].filter(x=>x.disabled&&x.classList.contains("correct")).length;
+  if(answered===st.qs.length){
+   labDone.add(st.id);
+   document.getElementById("stationStatus-"+si).className="feedback good";
+   document.getElementById("stationStatus-"+si).textContent="✓ Station complete — evidence secured!";
+   document.querySelectorAll("#labSteps .step")[si].classList.add("done");
+   document.getElementById("labProgress").style.width=(labDone.size/4*100)+"%";
+   document.getElementById("labStatus").textContent=labDone.size+" of 4 investigation stations completed.";
+   if(labDone.size===4){document.getElementById("toClues").disabled=false;document.getElementById("labStatus").textContent="All four stations complete! Your detective skills are ready for the final challenge."}
+  }
+ }else{
+  b.classList.add("incorrect");b.disabled=true;
+  feedback.className="feedback try";feedback.textContent="Not quite. Review the evidence locker and try another option.";
+ }
+});
+document.getElementById("toClues").addEventListener("click",()=>show("clues"));
+
 const questions=[
 {q:"Which list correctly names four components of body composition?",a:["Muscle, bone, body water, and fat","Height, age, eye color, and weight","Calories, steps, sleep, and mood"],c:0,why:"Body composition includes muscle mass, bone mass, body water, and fat mass."},
 {q:"Why doesn't a person's weight or BMI tell the whole health story?",a:["They measure every aspect of health","They do not directly show all body tissues, fitness, habits, or medical factors","They tell whether someone has diabetes"],c:1,why:"No single number captures every part of health or can diagnose diabetes."},
@@ -132,7 +194,7 @@ const quiz=document.getElementById("quiz");
 questions.forEach((q,i)=>{let d=document.createElement("div");d.className="question";d.innerHTML='<p>'+(i+1)+'. '+q.q+'</p><div class="choices">'+q.a.map((a,j)=>'<button class="choice" data-q="'+i+'" data-a="'+j+'">'+String.fromCharCode(65+j)+'. '+a+'</button>').join("")+'</div><div class="feedback" id="fb'+i+'" aria-live="polite"></div>';quiz.appendChild(d)});
 quiz.addEventListener("click",e=>{let b=e.target.closest(".choice");if(!b)return;let i=+b.dataset.q;if(solved.has(i))return;let q=questions[i],f=document.getElementById("fb"+i);if(+b.dataset.a===q.c){b.classList.add("correct");b.disabled=true;solved.add(i);f.className="feedback good";f.textContent="✓ Correct! "+q.why}else{b.classList.add("incorrect");b.disabled=true;f.className="feedback try";f.textContent="Not quite. Review the evidence and try another answer."}let count=solved.size;document.getElementById("quizProgress").style.width=(count/questions.length*100)+"%";document.getElementById("quizScore").textContent=count+" of 6 clues solved.";if(count===questions.length){document.getElementById("unlockReport").disabled=false;document.getElementById("quizScore").textContent="All six clues solved! Your final report is unlocked."}});
 document.getElementById("unlockReport").addEventListener("click",()=>show("report"));
-document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.go==="report"&&solved.size!==questions.length){show("clues")}else show(b.dataset.go)}));
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.go==="lab"&&visited.has("evidence"))return show("lab");if(b.dataset.go==="clues"&&labDone.size!==4)return show("lab");if(b.dataset.go==="report"&&solved.size!==questions.length)return show("clues");show(b.dataset.go)}));
 document.getElementById("prepare").addEventListener("click",()=>{const ids=["answer1","answer2","answer3","answer4","answer5"];let missing=ids.filter(id=>!document.getElementById(id).value.trim());if(missing.length){alert("Please complete all five case report responses before preparing your report.");document.getElementById(missing[0]).focus();return}const labels=["Body composition and health","The role of insulin","Type 1 and Type 2 diabetes","A myth corrected","Respect and empathy"];document.getElementById("summary").innerHTML=ids.map((id,i)=>'<p><b>'+labels[i]+':</b><br>'+escapeHTML(document.getElementById(id).value).replace(/\n/g,"<br>")+'</p>').join("");document.getElementById("completion").hidden=false;document.getElementById("completion").scrollIntoView({behavior:"smooth",block:"start"})});
 function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("print").addEventListener("click",()=>window.print());
