@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#17243b">
+<title>The Great Thanksgiving Game Quest | Gaming Mad Lib</title>
+<style>
+:root{--navy:#14233b;--ink:#172238;--gold:#ffbf47;--orange:#ef7d32;--cream:#fff4dc;--purple:#8d62d9;--cyan:#62d9ed;--green:#78c96b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:#f8f4ea;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(ellipse at 20% 0%,#754b79 0,transparent 35%),radial-gradient(ellipse at 90% 10%,#a44d31 0,transparent 30%),linear-gradient(145deg,#101d34,#243b4c 55%,#382b35);padding:24px 16px 48px}
+.wrap{max-width:1080px;margin:auto}
+.hero{text-align:center;padding:22px 18px 28px;border:3px solid var(--gold);border-radius:24px;background:linear-gradient(135deg,rgba(15,28,49,.96),rgba(43,39,59,.95));box-shadow:0 0 0 5px rgba(255,191,71,.12),0 16px 40px #080e1c99;position:relative;overflow:hidden}
+.hero:before{content:"🍂　✦　🍁　✦　🎮　✦　🍁　✦　🍂";display:block;color:#ffcc6b;letter-spacing:5px;font-size:clamp(12px,2vw,20px);margin-bottom:10px}
+.kicker{text-transform:uppercase;letter-spacing:3px;font-weight:800;color:#9ee8f2;font-size:.78rem}
+h1{margin:8px 0 8px;font-size:clamp(2rem,6vw,4rem);line-height:1.02;letter-spacing:-1.5px;text-shadow:3px 4px 0 #6b3c28}
+h1 span{color:#ffc95d}
+.subtitle{font-size:clamp(1rem,2.2vw,1.25rem);color:#f9e8c8;margin:0}
+.tagline{display:inline-block;margin-top:16px;padding:8px 16px;border-radius:999px;background:#583d70;border:1px solid #c6a4ff;font-weight:800;color:#fff}
+.layout{display:grid;grid-template-columns: minmax(270px,.85fr) minmax(0,1.4fr);gap:18px;margin-top:20px}
+.panel{border:2px solid rgba(255,197,91,.8);border-radius:20px;background:rgba(16,29,48,.94);box-shadow:0 12px 28px #080e1c77;overflow:hidden}
+.panel-head{padding:16px 18px;background:linear-gradient(90deg,#263c5c,#3a3155);border-bottom:1px solid #ffffff25}
+.panel-head h2{font-size:1.2rem;margin:0;color:#ffcf70}
+.panel-head p{margin:5px 0 0;color:#d9e4ee;font-size:.9rem}
+.fields{padding:16px;display:grid;gap:12px}
+.field label{display:block;font-weight:800;margin-bottom:6px;color:#f9e6c5;font-size:.93rem}
+.field small{display:block;color:#b8c9d7;font-weight:500;margin-top:3px}
+input{width:100%;padding:12px 13px;border:2px solid #6b8297;border-radius:11px;background:#fdf9f0;color:#172238;font:600 1rem inherit;outline:none}
+input:focus{border-color:#67d9ec;box-shadow:0 0 0 3px #67d9ec33}
+.actions{padding:0 16px 18px;display:grid;gap:10px}
+button{border:0;border-radius:12px;padding:14px 18px;font-weight:900;font-size:1rem;cursor:pointer;transition:transform .15s,filter .15s}
+button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+button:focus-visible{outline:3px solid white;outline-offset:3px}
+.primary{background:linear-gradient(90deg,#ffbd4d,#f1843e);color:#241a22;box-shadow:0 5px 0 #9c4d2b}
+.secondary{background:#2e4663;color:#f8f4ea;border:1px solid #89a8c6}
+.note{font-size:.82rem;color:#c4d3df;text-align:center;margin:0}
+.story-panel{min-height:100%;display:flex;flex-direction:column}
+.story-paper{margin:16px;padding:clamp(18px,3vw,30px);border-radius:15px;background:linear-gradient(135deg,#fff4dd,#f4dfb7);color:#263044;border:3px solid #d99b4a;box-shadow:inset 0 0 22px #c48d4733;flex:1}
+.story-paper h3{margin:0 0 14px;color:#7c452b;font-size:1.45rem}
+.story-paper p{font-family:Georgia,serif;font-size:1.12rem;line-height:1.85;margin:0;white-space:normal}
+.blank{display:inline-block;min-width:76px;padding:0 5px;margin:0 2px;color:#7a3e20;font-weight:800;border-bottom:2px dashed #b76a34;text-align:center}
+.result{display:none}
+.result.show{display:block}
+.placeholder{color:#7d786f;font-style:italic}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;padding:0 16px 18px}
+.result-actions button{flex:1;min-width:140px}
+.footer{text-align:center;color:#d9d0c4;font-size:.85rem;margin-top:20px}
+.footer strong{color:#ffd078}
+.toast{min-height:1.2em;color:#9ce9d1;font-size:.9rem;text-align:center}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.story-panel{min-height:360px}}
+@media(max-width:440px){body{padding:12px 10px 30px}.hero{padding:18px 12px 22px}.fields{padding:13px}.story-paper{margin:12px;padding:17px}.story-paper p{font-size:1.03rem}.result-actions{padding:0 12px 14px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">Gaming Concepts • Special Thanksgiving Edition</div>
+  <h1>THE GREAT <span>THANKSGIVING</span><br>GAME QUEST!</h1>
+  <p class="subtitle">A Gaming Mad Lib adventure — powered by YOUR words.</p>
+  <div class="tagline">🍗 Fill in the words. Generate the chaos. 🍂</div>
+</header>
+
+<div class="layout">
+<section class="panel" aria-labelledby="wordTitle">
+  <div class="panel-head">
+    <h2 id="wordTitle">🎮 Your Word Bank</h2>
+    <p>Don't read the story yet! Fill in each prompt with the first funny idea that comes to mind.</p>
+  </div>
+  <form id="madlibForm">
+    <div class="fields">
+      <div class="field"><label for="character">1. Character name</label><input id="character" name="character" placeholder="Example: Captain Waffle" required maxlength="35"></div>
+      <div class="field"><label for="adjective">2. Adjective</label><input id="adjective" name="adjective" placeholder="Example: ridiculously brave" required maxlength="35"></div>
+      <div class="field"><label for="genre">3. Video game genre</label><input id="genre" name="genre" placeholder="Example: racing, adventure, RPG" required maxlength="35"></div>
+      <div class="field"><label for="item">4. In-game item</label><input id="item" name="item" placeholder="Example: enchanted gravy spoon" required maxlength="35"></div>
+      <div class="field"><label for="place">5. Place in the game world</label><input id="place" name="place" placeholder="Example: Pumpkin Mountain" required maxlength="35"></div>
+      <div class="field"><label for="enemy">6. Enemy or challenge</label><input id="enemy" name="enemy" placeholder="Example: The Evil Brussels Sprout" required maxlength="35"></div>
+      <div class="field"><label for="verb">7. Action word (verb)</label><input id="verb" name="verb" placeholder="Example: moonwalk" required maxlength="35"></div>
+      <div class="field"><label for="food">8. Thanksgiving food</label><input id="food" name="food" placeholder="Example: mashed potatoes" required maxlength="35"></div>
+      <div class="field"><label for="number">9. Number</label><input id="number" name="number" type="number" min="1" max="999" placeholder="Example: 42" required></div>
+      <div class="field"><label for="emotion">10. Emotion</label><input id="emotion" name="emotion" placeholder="Example: suspiciously proud" required maxlength="35"></div>
+    </div>
+    <div class="actions">
+      <button class="primary" type="submit">✨ GENERATE MY STORY!</button>
+      <p class="note">Your words will automatically appear in the story →</p>
+    </div>
+  </form>
+</section>
+
+<section class="panel story-panel" aria-labelledby="storyTitle">
+  <div class="panel-head">
+    <h2 id="storyTitle">📜 Your Thanksgiving Adventure</h2>
+    <p>Your one-of-a-kind story will appear here!</p>
+  </div>
+  <article class="story-paper" aria-live="polite" aria-atomic="true">
+    <div id="placeholder">
+      <h3>Quest not started…</h3>
+      <p class="placeholder">The feast is waiting, the game world is loading, and the turkey needs a hero. Fill in your word bank and click “Generate My Story” to begin!</p>
+    </div>
+    <div id="result" class="result">
+      <h3>🦃 The Quest for the Missing Feast</h3>
+      <p id="storyText"></p>
+    </div>
+  </article>
+  <div class="result-actions">
+    <button id="copyBtn" class="secondary" type="button" disabled>📋 COPY MY STORY</button>
+    <button id="againBtn" class="secondary" type="button">🔄 PLAY AGAIN</button>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+</section>
+</div>
+<footer class="footer">🍁 <strong>Game Designer Reminder:</strong> There are no wrong answers. Be creative, have fun, and enjoy the quest! 🍁</footer>
+</main>
+<script>
+const form=document.getElementById('madlibForm');
+const fields=['character','adjective','genre','item','place','enemy','verb','food','number','emotion'];
+const safe=value=>String(value).trim().replace(/[<>]/g,'');
+const get=id=>safe(document.getElementById(id).value);
+let completedStory='';
+form.addEventListener('submit',event=>{
+  event.preventDefault();
+  if(!form.reportValidity()) return;
+  const w=Object.fromEntries(fields.map(id=>[id,get(id)]));
+  completedStory=`It was Thanksgiving Day in the world of ${w.genre}, and the legendary gamer ${w.character} was ready for the biggest feast of the year. But disaster struck! The Thanksgiving Feast-o-Matic had vanished, and only a ${w.adjective} hero could save the day.
+
+Armed with a ${w.item}, ${w.character} traveled to ${w.place}. Along the way, a fearsome ${w.enemy} appeared and blocked the path to the feast. “Not on my watch!” shouted ${w.character}, who decided to ${w.verb} right past the obstacle.
+
+At last, the hero discovered the missing treasure: a giant pile of ${w.food}! But there was one final challenge. The feast would disappear in ${w.number} seconds unless the hero completed the legendary Turkey Time Challenge.
+
+With a deep breath and a little luck, ${w.character} saved Thanksgiving! The whole kingdom cheered, the game awarded a golden controller trophy, and our hero felt completely ${w.emotion}. The end… or is there a bonus level? 🍂`;
+  document.getElementById('storyText').textContent=completedStory;
+  document.getElementById('placeholder').style.display='none';
+  document.getElementById('result').classList.add('show');
+  document.getElementById('copyBtn').disabled=false;
+  document.getElementById('toast').textContent='🎉 Your story is ready! Read it, copy it, or play again.';
+});
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  if(!completedStory)return;
+  try{await navigator.clipboard.writeText('THE QUEST FOR THE MISSING FEAST\n\n'+completedStory);document.getElementById('toast').textContent='Copied! Paste your story into your assignment.';}
+  catch(e){document.getElementById('toast').textContent='Select and copy the story text above.';}
+});
+document.getElementById('againBtn').addEventListener('click',()=>{
+  form.reset();
+  completedStory='';
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('placeholder').style.display='block';
+  document.getElementById('copyBtn').disabled=true;
+  document.getElementById('toast').textContent='New quest ready! Enter a fresh set of words.';
+  document.getElementById('character').focus();
+});
+</script>
+</body>
+</html>
